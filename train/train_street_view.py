@@ -2,6 +2,8 @@ from __future__ import print_function
 
 import os
 import sys
+import os.path
+from tensorflow.keras.models import load_model
 
 from keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard, ReduceLROnPlateau
 from keras.applications.resnet50 import ResNet50
@@ -91,3 +93,6 @@ model.fit_generator(
     callbacks=[checkpointer, reduce_lr, early_stopping, tensorboard],
     workers=10
 )
+
+if os.path.isfile('models/addmefast.h5') is False:
+  model.save('models/addmefast.h5')
